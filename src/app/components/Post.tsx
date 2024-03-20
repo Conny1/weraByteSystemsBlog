@@ -16,7 +16,7 @@ const Post = () => {
         <p>Release of Tailwind Nextjs Starter Blog template v2.0, refactored with Nextjs App directory and React Server Components setup.Discover the new features and how to migrate from V1.
 </p>
 
-<Link href='blog/:id' className='text-sm font-bold text-blue-600 ' >Read more →</Link>
+<Link href='blogs/3' className='text-sm font-bold text-blue-600 ' >Read more →</Link>
         </div>
     </div>
     </>
