@@ -9,6 +9,7 @@ const Nav = () => {
         <div className="w-1/2 flex justify-end gap-6 items-center " >
           <Link className="hover:underline transition-transform " href='/blogs' >Blogs</Link>
           <Link className="hover:underline transition-transform " href='/about' >About</Link>
+          <Link href='/login' className=" text-center outline outline-1 w-20 p-2 outline-blue-600 rounded-lg hover:bg-blue-600 hover:text-white " >Login</Link> 
         </div>
       </nav>
     </div>
