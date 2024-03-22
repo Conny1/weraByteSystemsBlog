@@ -1,0 +1,15 @@
+create table if not exists blog.user(
+id int auto_increment primary key ,
+name VARCHAR(205) ,
+email VARCHAR(205) NOT NULL  , 
+password VARCHAR(205) NOT NULL ,
+isAdmin BOOLEAN DEFAULT true
+);
+
+CREATE TABLE IF NOT EXISTS blog.blogdata (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+userid INT NOT NULL,
+content LONGTEXT,
+title VARCHAR(255),
+KEY(userid)
+);
