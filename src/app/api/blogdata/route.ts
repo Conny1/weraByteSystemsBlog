@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   const { title, userid, content } = await req.json();
 
-  const q = `INSERT INTO blog.blogdata(userid, title, content) VALUES(?,?,?)`;
+  const q = `INSERT INTO  ${process.env.DB_NAME}.blogdata(userid, title, content) VALUES(?,?,?)`;
   const data = [userid, title, content];
   try {
     const respData = await POSTRequest(q, data);
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const q = `SELECT * FROM blog.blogdata`;
+  const q = `SELECT * FROM  ${process.env.DB_NAME}.blogdata`;
   // console.log("get");
   try {
     const respData = await GETRequest(q);

@@ -33,8 +33,12 @@ const Login = () => {
         localStorage.setItem('bloguser', JSON.stringify(respData.data))
         setTimeout(()=>{
           router.push('/admin/create')
-        },3000)
-      }      
+        },2000)
+        setTimeout(()=>{        
+          location.reload()       
+                  }, 3000)
+                } 
+          
     } catch (error) {
       console.log(error)
     }

@@ -3,8 +3,9 @@ import { BlogError } from '@/utils/errorHandlers';
 import { userType } from '@/utils/types';
 import React, { useState } from 'react';
 import toast, {Toaster} from 'react-hot-toast';
-
-import ReactQuill from 'react-quill';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+// import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 

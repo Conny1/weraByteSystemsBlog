@@ -23,3 +23,15 @@ export const GETRequest = async (q: string) => {
     });
   });
 };
+
+export const DELRequest = async (q: string) => {
+  return await new Promise((resolve, reject) => {
+    connection.query(q, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+};

@@ -1,12 +1,12 @@
 import { POSTRequest } from "@/utils/HelperFunctions";
-import { connection } from "@/utils/db";
 import { userType } from "@/utils/types";
 import { NextRequest, NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 export async function POST(req: NextRequest) {
   try {
     const reqBody = await req.json();
-    const q = `SELECT * FROM blog.user WHERE email=?`;
+    const q = `SELECT * FROM  ${process.env.DB_NAME}.user WHERE email=?`;
 
     const results = await POSTRequest(q, [reqBody.email]);
 
@@ -36,7 +36,12 @@ export async function POST(req: NextRequest) {
         isadmin: userData[0].isadmin,
       },
     });
-    response.cookies.set("user", "loggedin", { secure: true });
+    const token = jwt.sign(
+      { id: userData[0].id, isadmin: userData[0].isadmin },
+      process.env.KEY as string
+    );
+
+    response.cookies.set("user", token, { secure: true });
 
     return response;
   } catch (error) {
