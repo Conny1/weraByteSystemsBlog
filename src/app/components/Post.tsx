@@ -42,8 +42,10 @@ const Post = ({title,content, createdat, id }:Props) => {
       if(resp.status ===200){
         toast.success("Deleted")
         location.reload()
+      }else if(resp.status === 403){
+        toast.error("Session expired. Log in again")
       }else{
-        toast.error("error deleting")
+        toast.error("error. Try again")
       }
       
     } catch (error) {
@@ -54,9 +56,10 @@ const Post = ({title,content, createdat, id }:Props) => {
   
   return (
     <>
-      <hr className="mt-10 mb-8  border-t-1 border-gray-400"  />
+    
       <Toaster/>
-    <div className='flex flex-col h-52 justify-between gap-3 ' >  
+    <div className='  outline-1 flex flex-col   lg:h-52 justify-between gap-3 ' >  
+    <hr className=" mt-8  border-t-1 border-gray-400"  />
        <div className=' flex justify-between w-full flex-wrap' > <p className='h-fit ' >{new Date(createdat).toDateString()}</p>  
     {userDta &&   <button onClick={deletePost} className='text-red-600' >Delete</button>}
          </div>

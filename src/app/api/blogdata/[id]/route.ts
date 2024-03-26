@@ -1,4 +1,4 @@
-import { DELRequest, GETRequest } from "@/utils/HelperFunctions";
+import { DELRequest, GETRequest, verifyToken } from "@/utils/HelperFunctions";
 import { contentType } from "@/utils/types";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -36,7 +36,13 @@ export async function DELETE(
   { params }: { params: { id: number } }
 ) {
   const q = `DELETE FROM ${process.env.DB_NAME}.blogdata WHERE id=${params.id}`;
-  //   console.log("get");
+  const token = req.cookies.get("user")?.value;
+  // console.log(token);
+  if (!token) return NextResponse.json({ status: 500 });
+  const isValidToken: Boolean = verifyToken(token);
+
+  if (!isValidToken)
+    return NextResponse.json({ status: 403, message: "forbiden. Login first" });
   try {
     const respData = await DELRequest(q);
 

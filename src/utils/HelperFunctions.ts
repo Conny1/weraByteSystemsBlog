@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import { connection } from "./db";
 
 export const POSTRequest = async (q: string, reqBody: any[]) => {
@@ -34,4 +35,18 @@ export const DELRequest = async (q: string) => {
       }
     });
   });
+};
+
+export const verifyToken = (token?: string) => {
+  // console.log(token);
+  if (!token) return false;
+  const secret = process.env.KEY as string;
+  let bol = false;
+  jwt.verify(token, secret, (err, user) => {
+    if (err) return (bol = false);
+
+    bol = true;
+  });
+
+  return bol;
 };

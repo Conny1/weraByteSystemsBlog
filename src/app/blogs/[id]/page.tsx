@@ -1,5 +1,8 @@
+import { contentType } from '@/utils/types';
+import { Metadata } from 'next';
 import React from 'react';
 import sanitizeHtml from 'sanitize-html';
+
 
 
 type pramType={
@@ -7,13 +10,43 @@ type pramType={
     id:number
   }
 }
+
+
+export async function generateMetadata({ params }: pramType): Promise<Metadata> {
+  const getBlogsMetaData =async()=>{
+    const Blogs = await fetch(`${process.env.BASE_URL}api/blogdata/${params.id}`,{
+      method:'GET',   
+    })
+    const Blogresp = await Blogs.json()
+  
+    if(Blogresp.status === 200){
+      return Blogresp.data
+    }else{
+      return []
+    }
+        
+   }
+  const blogData: Promise<contentType[]> = getBlogsMetaData()
+  const blog: contentType[] = await blogData
+  
+
+  const index1 = blog[0].content.indexOf('<p>')
+  const index2 = blog[0].content.indexOf('</p>')
+  const desc = blog[0].content.substring(index1, index2)
+
+  return {
+      title: blog[0].title,
+      description: desc
+  }
+
+}
+
 const BlogPostPage = async ({params}:pramType) => {
   const dummyBlogPost = {
     title: "First Blog Post",
     content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     date: "March 20, 2024" // Date of the post
   };
-
   const getBlogs =async()=>{
     const Blogs = await fetch(`${process.env.BASE_URL}api/blogdata/${params.id}`,{
       method:'GET',   
@@ -27,6 +60,8 @@ const BlogPostPage = async ({params}:pramType) => {
     }
         
    }
+
+  
   
    const data = await getBlogs() 
   //  console.log(data)

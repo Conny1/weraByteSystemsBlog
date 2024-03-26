@@ -1,5 +1,15 @@
 import React from 'react';
 
+import type { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: 'Werabyte Systems',
+  description: 'Explore our products and streamline your business processes.',
+  
+}
+ 
+
+
 const LandingPage = () => {
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center">

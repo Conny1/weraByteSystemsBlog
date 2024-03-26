@@ -1,8 +1,20 @@
-import { GETRequest, POSTRequest } from "@/utils/HelperFunctions";
+import { GETRequest, POSTRequest, verifyToken } from "@/utils/HelperFunctions";
 import { contentType } from "@/utils/types";
 import { NextRequest, NextResponse } from "next/server";
 
+// @description Create blog
+// route  /api/blogdata/
+// method POST
+
 export async function POST(req: NextRequest) {
+  const token = req.cookies.get("user")?.value;
+  // console.log(token);
+  if (!token) return NextResponse.json({ status: 500 });
+  const isValidToken: Boolean = verifyToken(token);
+
+  if (!isValidToken)
+    return NextResponse.json({ status: 403, message: "forbiden. Login first" });
+
   const { title, userid, content } = await req.json();
 
   const q = `INSERT INTO  ${process.env.DB_NAME}.blogdata(userid, title, content) VALUES(?,?,?)`;
@@ -20,6 +32,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ status: 500, message: "server error" });
   }
 }
+
+// @description get all blogs
+// route  /api/blogdata/
+// method GET
 
 export async function GET(req: NextRequest) {
   const q = `SELECT * FROM  ${process.env.DB_NAME}.blogdata`;
