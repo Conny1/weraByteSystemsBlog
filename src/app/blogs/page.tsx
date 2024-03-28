@@ -41,7 +41,7 @@ export default async function Blogs() {
   
       <div>
         {  data.length ===0? <h2>No blog post yet</h2> :
-          data.map((item:contentType)=>{
+          data.sort((a:contentType,b:contentType)=>new Date(a.createdat).getDay()- new Date(b.createdat).getDay()).map((item:contentType)=>{
             return <Post key={item.id} {...item}  />
           })
         }
