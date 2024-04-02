@@ -58,7 +58,7 @@ const Post = ({title,content, createdat, id }:Props) => {
     <>
     
       <Toaster/>
-    <div className='  outline-1 flex flex-col   lg:h-52 justify-between gap-3 ' >  
+    <div className='  outline-1 flex flex-col  justify-between gap-3 ' >  
     <hr className=" mt-8  border-t-1 border-gray-400"  />
        <div className=' flex justify-between w-full flex-wrap' > <p className='h-fit ' >{new Date(createdat).toDateString()}</p>  
     {userDta &&   <button onClick={deletePost} className='text-red-600' >Delete</button>}

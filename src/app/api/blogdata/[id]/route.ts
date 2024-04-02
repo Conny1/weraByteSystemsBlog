@@ -19,7 +19,7 @@ export async function GET(
         status: 404,
         message: "No blog yet",
       });
-    console.log(respData);
+    // console.log(respData);
     return NextResponse.json({ status: 200, data: respData });
   } catch (error) {
     // console.log(error);

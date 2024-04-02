@@ -15,7 +15,7 @@ type pramType={
 export async function generateMetadata({ params }: pramType): Promise<Metadata> {
   const getBlogsMetaData =async()=>{
     const Blogs = await fetch(`${process.env.BASE_URL}api/blogdata/${params.id}`,{
-      method:'GET',   
+      cache:"no-cache" ,   
     })
     const Blogresp = await Blogs.json()
   
@@ -77,7 +77,7 @@ const BlogPostPage = async ({params}:pramType) => {
 
   return (
     <div className="flex min-h-screen flex-col p-12 max-w-5xl mt-0">
-      <p className="text-gray-500 mb-2">{ new Date(data[0].createdat).toLocaleDateString() }</p>
+      {/* <p className="text-gray-500 mb-2">{ new Date(data[0].createdat).toLocaleDateString() }</p> */}
       <h1 className="text-4xl font-bold mb-4 max-w-3xl ">{data[0].title}</h1>
       <div className="prose lg:prose-xl  " dangerouslySetInnerHTML={{ __html: sanitizedHTML }}  >
         
