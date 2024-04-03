@@ -1,17 +1,17 @@
 import mysql from "mysql2";
 
-// development
-const dbConfig = {
+// Create the connection to database == Production
+export const dbConfig = {
   host: "localhost",
-  user: "root",
+  user: "efeedbac_root",
   port: 3306,
-  password: "123456789",
-  database: "blog",
+  password: "eq$Z)1h*h#st",
+  database: "efeedbac_blog",
 };
 
 const connection = mysql.createConnection(dbConfig);
 
-function handleDisconnect() {
+export function handleDisconnect() {
   // Create a new MySQL connection
 
   // Connect to MySQL
@@ -27,9 +27,9 @@ function handleDisconnect() {
   // Handle MySQL connection errors
   connection.on("error", (err) => {
     console.error("MySQL connection error:", err);
-    if (err.code === "PROTOCOL_CONNECTION_LOST") {
+    if (err.code === "PROTOCOL_CONNECTION_LOST" || err.code === "ECONNRESET") {
       // Reconnect if the MySQL connection is lost
-      handleDisconnect();
+      return handleDisconnect();
     } else {
       throw err;
     }

@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
-import connection from "./db";
+import connection, { handleDisconnect } from "./db";
 
 export const POSTRequest = async (q: string, reqBody: any[]) => {
+  handleDisconnect();
   return await new Promise((resolve, reject) => {
     connection.query(q, reqBody, (err, results) => {
       if (err) {
@@ -14,6 +15,7 @@ export const POSTRequest = async (q: string, reqBody: any[]) => {
 };
 
 export const GETRequest = async (q: string) => {
+  handleDisconnect();
   return await new Promise((resolve, reject) => {
     connection.query(q, (err, results) => {
       if (err) {
@@ -26,6 +28,7 @@ export const GETRequest = async (q: string) => {
 };
 
 export const DELRequest = async (q: string) => {
+  handleDisconnect();
   return await new Promise((resolve, reject) => {
     connection.query(q, (err, results) => {
       if (err) {
