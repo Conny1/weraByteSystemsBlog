@@ -1,12 +1,14 @@
 import mysql from "mysql2";
 
 // Create the connection to database == Production
-export const dbConfig = {
+
+// // development;
+const dbConfig = {
   host: "localhost",
-  user: "efeedbac_root",
+  user: "root",
   port: 3306,
-  password: "eq$Z)1h*h#st",
-  database: "efeedbac_blog",
+  password: "123456789",
+  database: "blog",
 };
 
 const connection = mysql.createConnection(dbConfig);
